@@ -1,4 +1,4 @@
-# Supply Chain Optimization System - Comprehensive Design
+# System design of the whole process
 
 ## 1. System Architecture Overview
 
