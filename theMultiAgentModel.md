@@ -6,22 +6,22 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        API Gateway Layer                         │
-│                  (Authentication, Rate Limiting)                 │
+│                        API Gateway Layer                        │
+│                  (Authentication, Rate Limiting)                │
 └─────────────────────────────────────────────────────────────────┘
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Orchestration Layer                          │
-│              (Agent Coordinator & Workflow Engine)               │
+│                     Orchestration Layer                         │
+│              (Agent Coordinator & Workflow Engine)              │
 └─────────────────────────────────────────────────────────────────┘
                               ▼
         ┌─────────────────────────────────────────────┐
-        │          RAG Pipeline Engine                 │
+        │          RAG Pipeline Engine                │
         │  ┌────────────────────────────────────────┐ │
         │  │   Query Processing & Embedding         │ │
         │  └────────────────────────────────────────┘ │
         │  ┌────────────────────────────────────────┐ │
-        │  │   Vector Database (Pinecone/Weaviate) │ │
+        │  │   Vector Database (Pinecone/Weaviate)  │ │
         │  └────────────────────────────────────────┘ │
         │  ┌────────────────────────────────────────┐ │
         │  │   Context Retrieval & Ranking          │ │
@@ -29,28 +29,28 @@
         └─────────────────────────────────────────────┘
                               ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                    Multi-Agent System                             │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
-│  │Production│  │Inventory │  │Logistics │  │Procurement│        │
-│  │  Agent   │  │  Agent   │  │  Agent   │  │  Agent    │        │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘        │
-│       │             │              │              │               │
-│       └─────────────┴──────────────┴──────────────┘               │
-│                    Agent Message Bus                              │
+│                    Multi-Agent System                            │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────┐        │
+│  │Production│  │Inventory │  │Logistics │  │Procurement │        │
+│  │  Agent   │  │  Agent   │  │  Agent   │  │  Agent     │        │
+│  └──────────┘  └──────────┘  └──────────┘  └────────────┘        │
+│       │             │              │              │              │
+│       └─────────────┴──────────────┴──────────────┘              │
+│                    Agent Message Bus                             │
 └──────────────────────────────────────────────────────────────────┘
                               ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                      Data Layer                                   │
-│  ┌─────────────┐  ┌──────────────┐  ┌─────────────┐            │
-│  │  OLTP DB    │  │  Time-Series │  │  Cache      │            │
-│  │ (PostgreSQL)│  │  DB (InfluxDB)│ │  (Redis)    │            │
-│  └─────────────┘  └──────────────┘  └─────────────┘            │
+│                      Data Layer                                  │
+│  ┌─────────────┐  ┌───────────────┐  ┌─────────────┐             │
+│  │  OLTP DB    │  │  Time-Series  │  │  Cache      │             │
+│  │ (PostgreSQL)│  │  DB (InfluxDB)│  │  (Redis)    │             │
+│  └─────────────┘  └───────────────┘  └─────────────┘             │
 └──────────────────────────────────────────────────────────────────┘
                               ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                    External Data Sources                          │
-│  • Weather APIs  • Market Data  • Festival Calendar               │
-│  • Supplier APIs • ERP Systems  • IoT Sensors                     │
+│                    External Data Sources                         │
+│      • Weather APIs  • Market Data  • Festival Calendar          │
+│        • Supplier APIs • ERP Systems  • IoT Sensors              │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
