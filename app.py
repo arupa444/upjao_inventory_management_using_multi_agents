@@ -60,6 +60,9 @@ class ForecastRequest(BaseModel):
     materialcode: str = Field(..., description="SKU/Material code")
     date: str = Field(..., description="Date in YYYY-MM-DD format")
     stock_on_hand: float = Field(..., ge=0, description="Current stock quantity")
+    intransit_qty: float = Field(0, ge=0, description="Quantity in transit")
+    pending_po_qty: float = Field(0, ge=0, description="Pending purchase order quantity")
+    lead_time_days: float = Field(7, ge=0, description="Lead time in days")
     stockout_flag: int = Field(0, ge=0, le=1, description="Stockout indicator (0 or 1)")
     historical_sales: Optional[List[float]] = Field(None, description="Last 30 days sales for LSTM")
 
@@ -148,12 +151,15 @@ def create_features_from_input(data: ForecastRequest) -> pd.DataFrame:
     # Parse date
     date = pd.to_datetime(data.date)
 
-    # Create base dataframe
+    # Create base dataframe with ALL required fields
     df = pd.DataFrame([{
         'date': date,
         'branchcode': data.branchcode,
         'materialcode': data.materialcode,
         'stock_on_hand': data.stock_on_hand,
+        'intransit_qty': data.intransit_qty,
+        'pending_po_qty': data.pending_po_qty,
+        'lead_time_days': data.lead_time_days,
         'stockout_flag': data.stockout_flag,
         'sales_qty': 0  # Placeholder, will be predicted
     }])
@@ -236,6 +242,12 @@ def create_features_from_input(data: ForecastRequest) -> pd.DataFrame:
 def predict_xgboost(features: pd.DataFrame) -> float:
     """Predict using XGBoost model"""
     feature_cols = metadata['feature_columns']
+
+    # Ensure all required features are present
+    for col in feature_cols:
+        if col not in features.columns:
+            features[col] = 0
+
     X = features[feature_cols]
     dmatrix = xgb.DMatrix(X)
     prediction = xgb_model.predict(dmatrix)[0]
@@ -245,6 +257,12 @@ def predict_xgboost(features: pd.DataFrame) -> float:
 def predict_lightgbm(features: pd.DataFrame) -> float:
     """Predict using LightGBM model"""
     feature_cols = metadata['feature_columns']
+
+    # Ensure all required features are present
+    for col in feature_cols:
+        if col not in features.columns:
+            features[col] = 0
+
     X = features[feature_cols]
     prediction = lgb_model.predict(X)[0]
     return max(0, float(prediction))
