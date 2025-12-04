@@ -1,0 +1,21 @@
+# Web Framework and Server
+fastapi>=0.95.0
+uvicorn>=0.22.0
+pydantic>=1.10.0
+
+# Data Manipulation
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Machine Learning Core
+joblib>=1.2.0
+scikit-learn>=1.2.0  # Required to load the scaler and encoder pickles
+
+# Model Specific Libraries
+xgboost>=1.7.0
+lightgbm>=3.3.5
+tensorflow>=2.12.0   # For loading the LSTM Keras model
+
+
+# i have mac do
+# brew install libomp
