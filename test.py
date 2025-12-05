@@ -70,6 +70,9 @@ def test_lightgbm_prediction():
         "materialcode": "SKU67890",
         "date": "2025-01-20",
         "stock_on_hand": 300,
+        "intransit_qty": 50,
+        "pending_po_qty": 150,
+        "lead_time_days": 5,
         "stockout_flag": 0,
         "historical_sales": [30, 35, 32, 38, 40, 42, 45, 48, 50, 52,
                             55, 58, 60, 62, 65, 68, 70, 72, 75, 78,
@@ -95,6 +98,9 @@ def test_lstm_prediction():
         "materialcode": "SKU11111",
         "date": "2025-01-25",
         "stock_on_hand": 450,
+        "intransit_qty": 80,
+        "pending_po_qty": 180,
+        "lead_time_days": 6,
         "stockout_flag": 0,
         "historical_sales": [50, 55, 52, 58, 60, 62, 65, 68, 70, 72,
                             75, 78, 80, 82, 85, 88, 90, 92, 95, 98,
@@ -120,6 +126,9 @@ def test_ensemble_prediction():
         "materialcode": "SKU22222",
         "date": "2025-02-01",
         "stock_on_hand": 600,
+        "intransit_qty": 120,
+        "pending_po_qty": 250,
+        "lead_time_days": 8,
         "stockout_flag": 0,
         "historical_sales": [60, 65, 62, 68, 70, 72, 75, 78, 80, 82,
                             85, 88, 90, 92, 95, 98, 100, 102, 105, 108,
@@ -147,6 +156,9 @@ def test_batch_prediction():
                 "materialcode": "SKU001",
                 "date": "2025-01-15",
                 "stock_on_hand": 500,
+                "intransit_qty": 100,
+                "pending_po_qty": 200,
+                "lead_time_days": 7,
                 "stockout_flag": 0,
                 "historical_sales": [45]*30
             },
@@ -155,6 +167,9 @@ def test_batch_prediction():
                 "materialcode": "SKU002",
                 "date": "2025-01-15",
                 "stock_on_hand": 300,
+                "intransit_qty": 50,
+                "pending_po_qty": 150,
+                "lead_time_days": 5,
                 "stockout_flag": 0,
                 "historical_sales": [30]*30
             },
@@ -163,6 +178,9 @@ def test_batch_prediction():
                 "materialcode": "SKU003",
                 "date": "2025-01-15",
                 "stock_on_hand": 450,
+                "intransit_qty": 80,
+                "pending_po_qty": 180,
+                "lead_time_days": 6,
                 "stockout_flag": 1,
                 "historical_sales": [50]*30
             }
@@ -203,6 +221,9 @@ def test_lstm_error():
         "materialcode": "SKU33333",
         "date": "2025-02-01",
         "stock_on_hand": 600,
+        "intransit_qty": 120,
+        "pending_po_qty": 250,
+        "lead_time_days": 8,
         "stockout_flag": 0
         # No historical_sales provided
     }
@@ -228,6 +249,9 @@ def performance_test(num_requests=100):
         "materialcode": "SKU12345",
         "date": "2025-01-15",
         "stock_on_hand": 500,
+        "intransit_qty": 100,
+        "pending_po_qty": 200,
+        "lead_time_days": 7,
         "stockout_flag": 0,
         "historical_sales": list(range(30, 60))
     }
@@ -269,6 +293,9 @@ curl -X POST http://localhost:8000/predict/xgboost \\
     "materialcode": "SKU12345",
     "date": "2025-01-15",
     "stock_on_hand": 500,
+    "intransit_qty": 100,
+    "pending_po_qty": 200,
+    "lead_time_days": 7,
     "stockout_flag": 0,
     "historical_sales": [45, 52, 48, 55, 60, 58, 62, 65, 70, 68, 72, 75, 78, 80, 82, 85, 88, 90, 92, 95, 98, 100, 102, 105, 108, 110, 112, 115, 118, 120]
   }'
@@ -281,6 +308,9 @@ curl -X POST http://localhost:8000/predict/ensemble \\
     "materialcode": "SKU12345",
     "date": "2025-01-15",
     "stock_on_hand": 500,
+    "intransit_qty": 100,
+    "pending_po_qty": 200,
+    "lead_time_days": 7,
     "stockout_flag": 0
   }'
 
@@ -294,6 +324,9 @@ curl -X POST "http://localhost:8000/predict/batch?model=xgboost" \\
         "materialcode": "SKU001",
         "date": "2025-01-15",
         "stock_on_hand": 500,
+        "intransit_qty": 100,
+        "pending_po_qty": 200,
+        "lead_time_days": 7,
         "stockout_flag": 0
       }
     ]
